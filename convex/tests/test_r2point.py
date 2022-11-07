@@ -70,3 +70,47 @@ class TestR2Point:
     def test_is_light4(self):
         a, b = R2Point(0.0, 0.0), R2Point(1.0, 0.0)
         assert R2Point(0.5, -0.5).is_light(a, b) is True
+
+    def test_quad1(self):
+        assert R2Point(-1.0, -2.0).quad() is False
+
+    def test_quad2(self):
+        assert R2Point(1.0, 5.0).quad() is True
+
+    def test_oy1(self):
+        a = R2Point(-1, -1)
+        b = R2Point(2, 2)
+        c = R2Point(0, 0)
+        assert R2Point.oy(a, b) == c
+
+    def test_oy2(self):
+        a = R2Point(2, -1)
+        b = R2Point(2, 2)
+        c = R2Point(2, 0)
+        assert R2Point.oy(a, b) == c
+
+    def test_ox1(self):
+        a = R2Point(-1, -1)
+        b = R2Point(2, 2)
+        c = R2Point(0, 0)
+        assert R2Point.oy(a, b) == c
+
+    def test_ox2(self):
+        a = R2Point(2, 2)
+        b = R2Point(-1, 2)
+        c = R2Point(0, 2)
+        assert R2Point.oy(a, b) == c
+
+    def test_tri1(self):
+        a = R2Point(-3, 0)
+        b = R2Point(0, 3)
+        c = R2Point(2, -2)
+        assert R2Point.tri(a, b, c) is True
+
+    def test_tri2(self):
+        a = R2Point(-3, 0)
+        b = R2Point(0, 3)
+        c = R2Point(-1, -1)
+        assert R2Point.tri(a, b, c) is False
+
+

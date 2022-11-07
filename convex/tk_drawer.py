@@ -51,6 +51,17 @@ class TkDrawer:
         self.canvas.create_line(x(p), y(p), x(q), y(q), fill="black", width=2)
         self.root.update()
 
+    # Рисование точки
+    def draw_point_red(self, p):
+        self.canvas.create_oval(
+            x(p) + 1, y(p) + 1, x(p) - 1, y(p) - 1, fill="red")
+        self.root.update()
+
+    # Рисование линии
+    def draw_line_red(self, p, q):
+        self.canvas.create_line(x(p), y(p), x(q), y(q), fill="red", width=2)
+        self.root.update()
+
 
 if __name__ == "__main__":
 

@@ -2,6 +2,7 @@
 from tk_drawer import TkDrawer
 from r2point import R2Point
 from convex import Void, Point, Segment, Polygon
+from my import Zero
 
 
 def void_draw(self, tk):
@@ -30,14 +31,19 @@ setattr(Polygon, 'draw', polygon_draw)
 
 tk = TkDrawer()
 f = Void()
+h = Zero()
+
 tk.clean()
 
 try:
     while True:
-        f = f.add(R2Point())
+        x = int(input("x->"))
+        y = int(input("y->"))
+        f = f.add(R2Point(x, y))
+        h = h.add(R2Point(x, y))
         tk.clean()
         f.draw(tk)
-        print(f"S = {f.area()}, P = {f.perimeter()}\n")
+        print(f"S = {f.area()}, P = {f.perimeter()}, Smod = {h.area()}")
 except(EOFError, KeyboardInterrupt):
     print("\nStop")
     tk.close()

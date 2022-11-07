@@ -5,6 +5,9 @@ from r2point import R2Point
 class Figure:
     """ Абстрактная фигура """
 
+    def perimeter(self):
+        return 0.0
+
     def area(self):
         return 0.0
 
@@ -32,6 +35,9 @@ class Segment(Figure):
     def __init__(self, p, q):
         self.p, self.q = p, q
 
+    def perimeter(self):
+        return 2.0 * self.p.dist(self.q)
+
     def add(self, r):
         if R2Point.is_triangle(self.p, self.q, r):
             return Polygon(self.p, self.q, r)
@@ -55,7 +61,11 @@ class Polygon(Figure):
         else:
             self.points.push_last(a)
             self.points.push_first(c)
+        self._perimeter = a.dist(b) + b.dist(c) + c.dist(a)
         self._area = abs(R2Point.area(a, b, c))
+
+    def perimeter(self):
+        return self._perimeter
 
     def area(self):
         return self._area
@@ -73,6 +83,7 @@ class Polygon(Figure):
         if t.is_light(self.points.last(), self.points.first()):
 
             # учёт удаления ребра, соединяющего конец и начало дека
+            self._perimeter -= self.points.first().dist(self.points.last())
             self._area += abs(R2Point.area(t,
                                            self.points.last(),
                                            self.points.first()))
@@ -80,6 +91,7 @@ class Polygon(Figure):
             # удаление освещённых рёбер из начала дека
             p = self.points.pop_first()
             while t.is_light(p, self.points.first()):
+                self._perimeter -= p.dist(self.points.first())
                 self._area += abs(R2Point.area(t, p, self.points.first()))
                 p = self.points.pop_first()
             self.points.push_first(p)
@@ -87,11 +99,14 @@ class Polygon(Figure):
             # удаление освещённых рёбер из конца дека
             p = self.points.pop_last()
             while t.is_light(self.points.last(), p):
+                self._perimeter -= p.dist(self.points.last())
                 self._area += abs(R2Point.area(t, p, self.points.last()))
                 p = self.points.pop_last()
             self.points.push_last(p)
 
             # добавление двух новых рёбер
+            self._perimeter += t.dist(self.points.first()) + \
+                t.dist(self.points.last())
             self.points.push_first(t)
 
         return self
