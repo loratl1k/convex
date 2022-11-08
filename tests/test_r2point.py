@@ -93,13 +93,13 @@ class TestR2Point:
         a = R2Point(-1, -1)
         b = R2Point(2, 2)
         c = R2Point(0, 0)
-        assert R2Point.oy(a, b) == c
+        assert R2Point.ox(a, b) == c
 
     def test_ox2(self):
         a = R2Point(2, 2)
         b = R2Point(-1, 2)
         c = R2Point(0, 2)
-        assert R2Point.oy(a, b) == c
+        assert R2Point.ox(a, b) == c
 
     def test_tri1(self):
         a = R2Point(-3, 0)
